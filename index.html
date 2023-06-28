@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-rotate=1.0">
+  <title>Document</title>
+
+  <!-- include jQuery cdn -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    #logo {
+      position: fixed;
+      top: 200px;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+    .aaa {
+      animation-name: rotate-easeOutBounce;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      animation-timing-function: linear;
+    }
+    .bbb {
+      animation-name: rotate-easeOutBounce2;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      animation-timing-function: linear;
+    }
+    .text {
+      position: fixed;
+      left: 100%;
+      animation-name: text;
+      animation-duration: 10s;
+      animation-fill-mode: forwards;
+      animation-timing-function: linear;
+      font-size: 24px;
+      /* font-weight: 700; */
+      font: '微軟正黑體';
+      word-break: keep-all;
+    }
+    @keyframes rotate-easeOutBounce {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      12% {
+        transform: rotate(19.8deg);
+      }
+
+      24% {
+        transform: rotate(79.2deg);
+      }
+
+      36% {
+        transform: rotate(176.4deg);
+      }
+
+      54% {
+        transform: rotate(135deg);
+      }
+
+      74% {
+        transform: rotate(176.4deg);
+      }
+
+      82% {
+        transform: rotate(169.2deg);
+      }
+
+      92% {
+        transform: rotate(178.2deg);
+      }
+
+      96% {
+        transform: rotate(176.4deg);
+      }
+
+      100% {
+        transform: rotate(180deg);
+      }
+    }
+    @keyframes rotate-easeOutBounce2 {
+      0% {
+        transform: rotate(180deg);
+      }
+
+      12% {
+        transform: rotate(199.8deg);
+      }
+
+      24% {
+        transform: rotate(259.2deg);
+      }
+
+      36% {
+        transform: rotate(356.4deg);
+      }
+
+      54% {
+        transform: rotate(315deg);
+      }
+
+      74% {
+        transform: rotate(356.4deg);
+      }
+
+      82% {
+        transform: rotate(349.2deg);
+      }
+
+      92% {
+        transform: rotate(358.2deg);
+      }
+
+      96% {
+        transform: rotate(356.4deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes text {
+      0% {
+        left: 100%;
+      }
+
+      100% {
+        left: -100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img id="logo" src="./logo.png" alt="" srcset="">
+  <script>
+    let mode = 0;
+    $('#logo').on('click', function() {
+      if(mode === 0) {
+        $('#logo').addClass('aaa').removeClass('bbb');
+        mode = 1;
+      } else {
+        $('#logo').removeClass('aaa').addClass('bbb');
+        mode = 0;
+      }
+    });
+
+    let texts = [
+      'wwwwwwwwwwwwww',
+      '誰這麼無聊做這種特效',
+      '草不可避',
+      'wwww',
+      'www',
+    ];
+    let timer = 0;
+    let step = (x) => {
+      timer++;
+      if(mode === 1) {
+        // random text
+        if(timer % 20 === 0) {
+          let text = texts[Math.floor(Math.random() * texts.length)];
+          // create text element
+          let textElement = document.createElement('div');
+          textElement.classList.add('text');
+          textElement.innerText = text;
+          // random screen height
+          let height = Math.floor(Math.random() * window.innerHeight);
+          textElement.style.top = `${height}px`;
+          document.body.appendChild(textElement);
+        }
+      } else {
+        // remove text
+        $('.text').remove();
+      }
+      requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  </script>
+</body>
+</html>
